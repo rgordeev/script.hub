@@ -10,13 +10,26 @@
 
 ## Требования
 
-- Docker
+- Docker и Docker Compose
 - Node.js 14+ и npm
 - Python 3.9+
 
 ## Установка и запуск
 
-### 1. Запуск Docker контейнера
+### 1. Запуск через Docker Compose (рекомендуется)
+
+```bash
+# Запуск приложения
+docker-compose up -d
+
+# Просмотр логов
+docker-compose logs -f
+
+# Остановка приложения
+docker-compose down
+```
+
+### 2. Запуск через Docker
 
 ```bash
 # Сборка образа
@@ -26,7 +39,7 @@ docker build -t script-hub .
 docker run -d -p 6080:6080 -p 5900:5900 -p 8000:8000 --name script-hub script-hub
 ```
 
-### 2. Запуск React приложения
+### 3. Запуск React приложения
 
 ```bash
 # Установка зависимостей
@@ -50,6 +63,7 @@ npm start
 │   └── App.css           # Стили
 ├── public/               # Статические файлы
 ├── Dockerfile           # Конфигурация Docker
+├── docker-compose.yml   # Конфигурация Docker Compose
 ├── start.sh            # Скрипт запуска контейнера
 └── package.json        # Node.js зависимости
 ```

@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  vnc-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: script-hub
+    ports:
+      - "6080:6080"  # noVNC WebSocket
+      - "5900:5900"  # VNC сервер
+      - "8000:8000"  # Flask API
+    volumes:
+      - ./app:/app
+    environment:
+      - DISPLAY=:99
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6080"]
+      interval: 30s
+      timeout: 10s
+      retries: 3 
