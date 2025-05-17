@@ -1,64 +1,98 @@
 # Script Hub
 
-Веб-приложение для запуска Python скриптов с PyQt интерфейсом в контейнере и отображения их через VNC в браузере.
+Веб-приложение для конвертации чисел в слова с использованием PyQt5 и React.
+
+## Описание
+
+Приложение состоит из двух частей:
+- Backend: Python приложение с PyQt5 для конвертации чисел и Flask API для скачивания результатов
+- Frontend: React приложение с noVNC для отображения PyQt5 интерфейса в браузере
 
 ## Требования
 
-- Node.js 14+
 - Docker
+- Node.js 14+ и npm
 - Python 3.9+
 
 ## Установка и запуск
 
-1. Клонируйте репозиторий:
-```bash
-git clone <repository-url>
-cd script-hub
-```
+### 1. Запуск Docker контейнера
 
-2. Установите зависимости React приложения:
 ```bash
-npm install
-```
-
-3. Соберите Docker образ:
-```bash
+# Сборка образа
 docker build -t script-hub .
+
+# Запуск контейнера
+docker run -d -p 6080:6080 -p 5900:5900 -p 8000:8000 --name script-hub script-hub
 ```
 
-4. Запустите Docker контейнер:
-```bash
-docker run -d -p 6080:6080 -p 5000:5000 script-hub
-```
+### 2. Запуск React приложения
 
-5. Запустите React приложение:
 ```bash
+# Установка зависимостей
+npm install
+
+# Запуск в режиме разработки
 npm start
 ```
 
-Приложение будет доступно по адресу http://localhost:3000
+Приложение будет доступно по адресу: http://localhost:3000
+
+## Структура проекта
+
+```
+.
+├── app/                    # Python backend
+│   ├── app.py             # Основной файл приложения
+│   └── requirements.txt   # Python зависимости
+├── src/                   # React frontend
+│   ├── App.js            # Основной компонент
+│   └── App.css           # Стили
+├── public/               # Статические файлы
+├── Dockerfile           # Конфигурация Docker
+├── start.sh            # Скрипт запуска контейнера
+└── package.json        # Node.js зависимости
+```
 
 ## Использование
 
-1. Откройте приложение в браузере
-2. Введите число в поле ввода PyQt формы
+1. Откройте http://localhost:3000 в браузере
+2. В открывшемся окне VNC введите число в поле ввода
 3. Нажмите кнопку "Конвертировать"
-4. Результат будет сохранен в Excel файл
-5. Нажмите кнопку "Скачать результат" для получения файла
+4. Для скачивания результата нажмите кнопку "Скачать результат"
 
-## Архитектура
+## Порты
 
-- Frontend: React приложение с noVNC клиентом
-- Backend: Python приложение с PyQt интерфейсом
-- Контейнеризация: Docker с Xvfb, Fluxbox и x11vnc
-- API: Flask для скачивания файлов
+- 3000: React приложение
+- 6080: noVNC WebSocket
+- 5900: VNC сервер
+- 8000: Flask API
 
-## Технологии
+## Разработка
 
-- React
-- PyQt5
-- noVNC
-- Docker
-- Flask
-- openpyxl
-- num2words 
+### Backend
+
+```bash
+# Установка Python зависимостей
+pip install -r app/requirements.txt
+
+# Запуск Python приложения
+python app/app.py
+```
+
+### Frontend
+
+```bash
+# Установка Node.js зависимостей
+npm install
+
+# Запуск в режиме разработки
+npm start
+
+# Сборка для продакшена
+npm run build
+```
+
+## Лицензия
+
+WTFPL - Do What The Fuck You Want To Public License 
