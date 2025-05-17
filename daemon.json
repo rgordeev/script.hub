@@ -1,0 +1,5 @@
+{
+  "memory": "4G",
+  "memory-swap": "6G",
+  "memory-reservation": "3G"
+} 
