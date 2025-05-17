@@ -5,9 +5,11 @@ from PyQt5.QtCore import Qt
 from num2words import num2words
 from openpyxl import Workbook
 from flask import Flask, send_file
+from flask_cors import CORS
 import threading
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 class NumberConverter(QMainWindow):
     def __init__(self):
@@ -56,7 +58,7 @@ def download_file():
     return send_file("result.xlsx", as_attachment=True)
 
 def run_flask():
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=8000)
 
 if __name__ == '__main__':
     # Запуск Flask в отдельном потоке

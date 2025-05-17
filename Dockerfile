@@ -44,7 +44,7 @@ RUN chmod +x /usr/local/bin/start.sh && chown app:app /usr/local/bin/start.sh
 
 USER app
 
-# VNC (5900) и noVNC (6080)
-EXPOSE 6080 5900
+# VNC (5900) и noVNC (6080) и Flask (5000)
+EXPOSE 6080 5900 8000
 
 CMD ["start.sh"]
